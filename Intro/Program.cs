@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Intro.Entities;
 using Intro.Business;
-
+using Intro.DataAccess.Concretes;
 
 Console.WriteLine("Hello, World!");
 bool isAuthenticated = true;
@@ -21,15 +21,18 @@ for (int i = 0; i < loans.Length; i++)
     Console.WriteLine(loans[i]);
 }
 
+Console.WriteLine("-----------------------------------------------------");
 
- CourseManager courseManager = new ();
-Course[] courses = courseManager.GetAll();
+CourseManager courseManager = new (new EfCourseDal());
 
-for (int i = 0; i < courses.Length; i++)
+List<Course> courses = courseManager.GetAll();
+
+for (int i = 0; i < courses.Count; i++)
 {
     Console.WriteLine(courses[i].Name + "/" + courses[i].Price);
 }
 
+Console.WriteLine("-----------------------------------------------------");
 
 IndividualCustomer customer1 = new IndividualCustomer();
 customer1.Id = 1;
@@ -59,8 +62,9 @@ customer4.TaxNumber = "01234567891";
 
 BaseCustomer[] customers = {customer1,customer2,customer3,customer4 };
 
-foreach (BaseCustomer item in customers)
+foreach (BaseCustomer customer in customers)
 {
-    Console.WriteLine(item.CustomerNumber);
+    Console.WriteLine(customer.CustomerNumber);
 }
 
+Console.WriteLine("-----------------------------------------------------");
